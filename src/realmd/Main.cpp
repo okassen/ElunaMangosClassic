@@ -188,6 +188,16 @@ extern int main(int argc, char** argv)
     sLog.outString("%s [realm-daemon]", _FULLVERSION(REVISION_DATE, REVISION_TIME, REVISION_NR, REVISION_ID));
     sLog.outString("<Ctrl-C> to stop.\n");
     sLog.outString("Using configuration file %s.", cfg_file);
+	
+    sLog.outString(" ");
+    sLog.outString(" ██████╗ ██╗    ██╗██╗ ██████╗ ██████╗ ██████╗ ███████╗");
+    sLog.outString("██╔═══██╗██║    ██║██║██╔════╝██╔═══██╗██╔══██╗██╔════╝");
+    sLog.outString("██║   ██║██║ █╗ ██║██║██║     ██║   ██║██████╔╝█████╗  ");
+    sLog.outString("██║   ██║██║███╗██║██║██║     ██║   ██║██╔══██╗██╔══╝  ");
+    sLog.outString("╚██████╔╝╚███╔███╔╝██║╚██████╗╚██████╔╝██║  ██║███████╗");
+    sLog.outString(" ╚═════╝  ╚══╝╚══╝ ╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝");
+    sLog.outString(" Project OWIEmu 2015(c) Open-sourced Game Emulation");
+    sLog.outString("<Ctrl-C> to stop.\n");
 
     ///- Check the version of the configuration file
     uint32 confVersion = sConfig.GetIntDefault("ConfVersion", 0);
