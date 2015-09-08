@@ -3608,8 +3608,29 @@ INSERT INTO `mangos_string` VALUES
 (1606,'|cffffff00The Plaguewood Tower has been taken by the Horde!|r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 (1607,'|cffffff00The Plaguewood Tower has been taken by the Alliance!|r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 (1635,'|cffffff00The Horde has collected 200 silithyst!|r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-(1636,'|cffffff00The Alliance has collected 200 silithyst!|r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+(1636,'|cffffff00The Alliance has collected 200 silithyst!|r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+(1700,'|cffffcc00[Server]: |cff00ff00%s|r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `mangos_string` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `autobroadcast`
+--
+
+CREATE TABLE IF NOT EXISTS `autobroadcast` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `text` LONGTEXT NOT NULL,
+  `next` INT(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MYISAM  DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `autobroadcast`
+--
+
+LOCK TABLES `npc_gossip` WRITE;
+/*!40000 ALTER TABLE `autobroadcast` DISABLE KEYS */;
+/*!40000 ALTER TABLE `autobroadcast` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
