@@ -36,6 +36,7 @@
 #include "GridNotifiersImpl.h"
 #include "CellImpl.h"
 #include "LuaEngine.h"
+#include "Config/Config.h"
 
 bool WorldSession::processChatmessageFurtherAfterSecurityChecks(std::string& msg, uint32 lang)
 {
@@ -168,18 +169,27 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recv_data)
 
             if (type == CHAT_MSG_SAY)
             {
+                if (GetPlayer()->isGMChat() && sWorld.getConfig(CONFIG_BOOL_GM_CHAT_COLOR_ENABLED) && !msg.empty())
+                   msg = sConfig.GetStringDefault("GM.ChatColor", "") + msg + "|r";
+
                 if (!sEluna->OnChat(GetPlayer(), type, lang, msg))
                     return;
                 GetPlayer()->Say(msg, lang);
             }
             else if (type == CHAT_MSG_EMOTE)
             {
+				if (GetPlayer()->isGMChat() && sWorld.getConfig(CONFIG_BOOL_GM_CHAT_COLOR_ENABLED) && !msg.empty())
+                   msg = sConfig.GetStringDefault("GM.ChatColor", "") + msg + "|r";
+
                 if (!sEluna->OnChat(GetPlayer(), type, LANG_UNIVERSAL, msg))
                     return;
                 GetPlayer()->TextEmote(msg);
             }
             else if (type == CHAT_MSG_YELL)
             {
+                if (GetPlayer()->isGMChat() && sWorld.getConfig(CONFIG_BOOL_GM_CHAT_COLOR_ENABLED) && !msg.empty())
+                   msg = sConfig.GetStringDefault("GM.ChatColor", "") + msg + "|r";
+
                 if (!sEluna->OnChat(GetPlayer(), type, lang, msg))
                     return;
                 GetPlayer()->Yell(msg, lang);
@@ -221,6 +231,8 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recv_data)
                     return;
                 }
             }
+				if (GetPlayer()->isGMChat() && sWorld.getConfig(CONFIG_BOOL_GM_CHAT_COLOR_ENABLED) && !msg.empty())
+					msg = sConfig.GetStringDefault("GM.ChatColor", "") + msg + "|r";
 
             // used by eluna
             sEluna->OnChat(GetPlayer(), type, lang, msg, player);
@@ -283,6 +295,8 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recv_data)
             if (GetPlayer()->GetGuildId())
                 if (Guild* guild = sGuildMgr.GetGuildById(GetPlayer()->GetGuildId()))
                 {
+					if (GetPlayer()->isGMChat() && sWorld.getConfig(CONFIG_BOOL_GM_CHAT_COLOR_ENABLED) && !msg.empty())
+						msg = sConfig.GetStringDefault("GM.ChatColor", "") + msg + "|r";
                     // used by eluna
                     if (!sEluna->OnChat(GetPlayer(), type, lang, msg, guild))
                         return;
@@ -312,6 +326,8 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recv_data)
             if (GetPlayer()->GetGuildId())
                 if (Guild* guild = sGuildMgr.GetGuildById(GetPlayer()->GetGuildId()))
                 {
+					if (GetPlayer()->isGMChat() && sWorld.getConfig(CONFIG_BOOL_GM_CHAT_COLOR_ENABLED) && !msg.empty())
+						msg = sConfig.GetStringDefault("GM.ChatColor", "") + msg + "|r";
                     // used by eluna
                     if (!sEluna->OnChat(GetPlayer(), type, lang, msg, guild))
                         return;
@@ -481,7 +497,14 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recv_data)
             if (ChannelMgr* cMgr = channelMgr(_player->GetTeam()))
                 if (Channel* chn = cMgr->GetChannel(channel, _player))
                 {
+					if (GetPlayer()->isGMChat() && sWorld.getConfig(CONFIG_BOOL_GM_CHAT_COLOR_ENABLED) && !msg.empty())
+						msg = sConfig.GetStringDefault("GM.ChatColor", "") + msg + "|r";
+			   
                     // used by eluna
+					if (GetPlayer()->isGMChat() && sWorld.getConfig(CONFIG_BOOL_GM_CHAT_COLOR_ENABLED) && !msg.empty())
+						msg = sConfig.GetStringDefault("GM.ChatColor", "") + msg + "|r";
+					
+                    // used by eluna					
                     if (!sEluna->OnChat(GetPlayer(), type, lang, msg, chn))
                         return;
 
@@ -512,7 +535,9 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recv_data)
 
                     _player->ToggleAFK();
                 }
-
+                if (GetPlayer()->isGMChat() && sWorld.getConfig(CONFIG_BOOL_GM_CHAT_COLOR_ENABLED) && !msg.empty())
+                   msg = sConfig.GetStringDefault("GM.ChatColor", "") + msg + "|r";
+			   
                 // used by eluna
                 if (!sEluna->OnChat(GetPlayer(), type, lang, msg))
                     return;
@@ -540,7 +565,9 @@ void WorldSession::HandleMessagechatOpcode(WorldPacket& recv_data)
 
                 _player->ToggleDND();
             }
-
+                if (GetPlayer()->isGMChat() && sWorld.getConfig(CONFIG_BOOL_GM_CHAT_COLOR_ENABLED) && !msg.empty())
+                   msg = sConfig.GetStringDefault("GM.ChatColor", "") + msg + "|r";
+			   
             // used by eluna
             if (!sEluna->OnChat(GetPlayer(), type, lang, msg))
                 return;
