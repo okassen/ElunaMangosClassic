@@ -667,6 +667,15 @@ INSERT INTO `command` VALUES
 /*!40000 ALTER TABLE `command` ENABLE KEYS */;
 UNLOCK TABLES;
 
+DELETE FROM `command` WHERE NAME = 'nameannounce';
+INSERT INTO `command` VALUES
+('nameannounce',1,'Syntax: .nameannounce $MessageToBroadcast\r\n\r\nSend a global message to all players online in chat log with colored sender\'s name.');
+
+DELETE FROM `mangos_string` WHERE entry IN (67, 68, 69);
+INSERT INTO `mangos_string` VALUES
+(67,'|c1f40af20 <Mod>|cffff0000[%s]|c1f40af20 announce:|cffffff00 %s|r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(68,'|c1f40af20 <GM>|cffff0000[%s]|c1f40af20 announce:|cffffff00 %s|r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+(69,'|c1f40af20 <Admin>|cffff0000[%s]|c1f40af20 announce:|cffffff00 %s|r',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 --
 -- Table structure for table `conditions`
 --
