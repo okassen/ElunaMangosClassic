@@ -175,12 +175,11 @@ void Creature::AddToWorld()
     if (!IsInWorld() && GetObjectGuid().GetHigh() == HIGHGUID_UNIT)
         GetMap()->GetObjectsStore().insert<Creature>(GetObjectGuid(), (Creature*)this);
 
-    Unit::AddToWorld();
-
-    // Make active if required
-    std::set<uint32> const* mapList = sWorld.getConfigForceLoadMapIds();
-    if ((mapList && mapList->find(GetMapId()) != mapList->end()) || (GetCreatureInfo()->ExtraFlags & CREATURE_EXTRA_FLAG_ACTIVE))
-        SetActiveObjectState(true);
+	// Uncommend bellow to make creature with waypoint active only
+	//CreatureData const* data = sObjectMgr.GetCreatureData(GetGUIDLow());
+	if (/*data && data->movementType == 2 && */sWorld.getConfig(CONFIG_BOOL_GRID_LOADALL) == 1)
+		SetActiveObjectState(true);
+	Unit::AddToWorld();
 
     if (!inWorld)
         sEluna->OnAddToWorld(this);
