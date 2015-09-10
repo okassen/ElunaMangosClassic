@@ -112,11 +112,12 @@ BindIP = "0.0.0.0"
 #        Default: 1 (unload grids)
 #                 0 (do not unload grids)
 #
-#    LoadAllGridsOnMaps
-#        Load grids of maps at server startup (if you have lot memory you can try it to have a living world always loaded)
-#        This also allow ALL creatures on the given maps to update their grid without any player around.
-#        Default: "" (don't load all grids at startup)
-#                 "mapId1[,mapId2[..]]" (DO load all grids on the given maps- Experimental and very resource consumming)
+#    LoadAllGrids
+#        Load all grids at server startup (if you have lot memory you can try it to have a living world always loaded)
+#        This also allow ALL creatures to update their grid without any player around
+#        This setting has no effect if GridUnload is activated
+#        Default: 0 (don't load all grids at startup)
+#                 1 (DO load all grids - Experimental and very resource consumming)
 #
 #    GridCleanUpDelay
 #        Grid clean up delay (in milliseconds)
@@ -212,7 +213,7 @@ PlayerLimit = 100
 SaveRespawnTimeImmediately = 1
 MaxOverspeedPings = 2
 GridUnload = 1
-LoadAllGridsOnMaps = ""
+LoadAllGrids = 0
 GridCleanUpDelay = 300000
 MapUpdateInterval = 100
 ChangeWeatherInterval = 600000
@@ -1124,7 +1125,7 @@ GM.LogTrade              = 1
 GM.StartLevel            = 1
 GM.LowerSecurity         = 0
 GM.InvisibleAura         = 31748
-GM.ChatColor.Enabled     = 0
+GM.ChatColor.Enabled     = 1
 GM.ChatColor             = "|cff2998ff"
 
 ###################################################################################################################

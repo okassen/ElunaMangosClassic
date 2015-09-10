@@ -102,6 +102,26 @@ LOCK TABLES `account_banned` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `autobroadcast`
+--
+
+CREATE TABLE IF NOT EXISTS `autobroadcast` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `text` LONGTEXT NOT NULL,
+  `next` INT(11) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MYISAM  DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `autobroadcast`
+--
+
+LOCK TABLES `autobroadcast` WRITE;
+/*!40000 ALTER TABLE `autobroadcast` DISABLE KEYS */;
+/*!40000 ALTER TABLE `autobroadcast` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ip_banned`
 --
 
