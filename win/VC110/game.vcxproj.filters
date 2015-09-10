@@ -542,7 +542,7 @@
     </ClInclude>
     <ClInclude Include="..\..\src\game\BattleGround\BattleGroundRL.h">
       <Filter>BattleGround</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClCompile Include="..\..\src\game\LuaEngine\BattleGroundHooks.cpp">
       <Filter>LuaEngine</Filter>
     </ClCompile>
