@@ -4,6 +4,7 @@
 ** See Copyright Notice in lua.h
 */
 
+#define _CRT_SECURE_NO_WARNINGS
 
 /*
 ** This definition must come before the inclusion of 'stdio.h'; it

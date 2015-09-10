@@ -8,6 +8,7 @@
 ** systems.
 */
 
+#define _CRT_SECURE_NO_WARNINGS
 
 /*
 ** if needed, includes windows header before everything else

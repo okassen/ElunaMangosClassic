@@ -4,6 +4,7 @@
 ** See Copyright Notice in lua.h
 */
 
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <errno.h>
 #include <stdarg.h>
