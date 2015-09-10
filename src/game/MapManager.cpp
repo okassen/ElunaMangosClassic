@@ -118,6 +118,26 @@ Map* MapManager::CreateMap(uint32 id, const WorldObject* obj)
 
             // non-instanceable maps always expected have saved state
             m->CreateInstanceData(true);
+			if (sWorld.getConfig(CONFIG_BOOL_GRID_UNLOAD) == 0 && sWorld.getConfig(CONFIG_BOOL_GRID_LOADALL) == 1)
+			{
+				uint32 nb = 0;
+				for (int ix = 1 - (MAX_NUMBER_OF_GRIDS / 2); ix < (MAX_NUMBER_OF_GRIDS / 2); ix++)
+				{
+					float x = SIZE_OF_GRIDS * ix + (SIZE_OF_GRIDS / 2);
+					for (int iy = 1 - (MAX_NUMBER_OF_GRIDS / 2); iy < (MAX_NUMBER_OF_GRIDS / 2); iy++)
+					{
+						float y = SIZE_OF_GRIDS * iy + (SIZE_OF_GRIDS / 2);
+						if (ExistMapAndVMap(id, x, y))
+						{
+							CellPair p = MaNGOS::ComputeCellPair(x, y);
+							Cell cell(p);
+							m->LoadGrid(cell, true);
+							nb++;
+						}
+					}
+				}
+				BASIC_LOG("%u grids loaded for map %u", nb, id);
+			}
         }
     }
 

@@ -451,18 +451,7 @@ void World::LoadConfigSettings(bool reload)
     setConfig(CONFIG_BOOL_ADDON_CHANNEL, "AddonChannel", true);
     setConfig(CONFIG_BOOL_CLEAN_CHARACTER_DB, "CleanCharacterDB", true);
     setConfig(CONFIG_BOOL_GRID_UNLOAD, "GridUnload", true);
-
-    std::string forceLoadGridOnMaps = sConfig.GetStringDefault("LoadAllGridsOnMaps", "");
-    if (!forceLoadGridOnMaps.empty())
-    {
-        m_configForceLoadMapIds = new std::set<uint32>;
-        unsigned int pos = 0;
-        unsigned int id;
-        VMAP::VMapFactory::chompAndTrim(forceLoadGridOnMaps);
-        while (VMAP::VMapFactory::getNextId(forceLoadGridOnMaps, pos, id))
-            m_configForceLoadMapIds->insert(id);
-    }
-
+	setConfig(CONFIG_BOOL_GRID_LOADALL, "LoadAllGrids", false);
     setConfig(CONFIG_UINT32_INTERVAL_SAVE, "PlayerSave.Interval", 15 * MINUTE * IN_MILLISECONDS);
     setConfigMinMax(CONFIG_UINT32_MIN_LEVEL_STAT_SAVE, "PlayerSave.Stats.MinLevel", 0, 0, MAX_LEVEL);
     setConfig(CONFIG_BOOL_STATS_SAVE_ONLY_ON_LOGOUT, "PlayerSave.Stats.SaveOnlyOnLogout", true);
@@ -1206,16 +1195,16 @@ void World::SetInitialWorldSettings()
     LoginDatabase.PExecute("INSERT INTO uptime (realmid, starttime, startstring, uptime) VALUES('%u', " UI64FMTD ", '%s', 0)",
                            realmID, uint64(m_startTime), isoDate);
 
-    static uint32 abtimer = 0;
+	static uint32 abtimer = 0;
     abtimer = sConfig.GetIntDefault("AutoBroadcast.Timer", 60000);
-
+	
     m_timers[WUPDATE_AUCTIONS].SetInterval(MINUTE * IN_MILLISECONDS);
     m_timers[WUPDATE_UPTIME].SetInterval(getConfig(CONFIG_UINT32_UPTIME_UPDATE)*MINUTE * IN_MILLISECONDS);
     // Update "uptime" table based on configuration entry in minutes.
     m_timers[WUPDATE_CORPSES].SetInterval(20 * MINUTE * IN_MILLISECONDS);
     m_timers[WUPDATE_DELETECHARS].SetInterval(DAY * IN_MILLISECONDS); // check for chars to delete every day
-	m_timers[WUPDATE_AUTOBROADCAST].SetInterval(abtimer);
-    // for AhBot
+    m_timers[WUPDATE_AUTOBROADCAST].SetInterval(abtimer);
+	// for AhBot
     m_timers[WUPDATE_AHBOT].SetInterval(20 * IN_MILLISECONDS); // every 20 sec
 
     // to set mailtimer to return mails every day between 4 and 5 am
@@ -1425,7 +1414,7 @@ void World::Update(uint32 diff)
         m_timers[WUPDATE_EVENTS].SetInterval(nextGameEvent);
         m_timers[WUPDATE_EVENTS].Reset();
     }
-
+	
     static uint32 autobroadcaston = 0;
     autobroadcaston = sConfig.GetIntDefault("AutoBroadcast.On", 0);
 
@@ -1436,8 +1425,8 @@ void World::Update(uint32 diff)
              m_timers[WUPDATE_AUTOBROADCAST].Reset();
              SendBroadcast();
         }
-    }
-	
+    }	
+
     /// </ul>
     ///- Move all creatures with "delayed move" and remove and delete all objects with "delayed remove"
     sMapMgr.RemoveAllObjectsInRemoveList();

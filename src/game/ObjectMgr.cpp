@@ -7972,26 +7972,6 @@ void ObjectMgr::LoadActiveEntities(Map* _map)
         return;
     }
 
-    // Load active objects for _map
-    std::set<uint32> const* mapList = sWorld.getConfigForceLoadMapIds();
-    if (mapList && mapList->find(_map->GetId()) != mapList->end())
-    {
-        for (CreatureDataMap::const_iterator itr = mCreatureDataMap.begin(); itr != mCreatureDataMap.end(); ++itr)
-        {
-            if (itr->second.mapid == _map->GetId())
-                _map->ForceLoadGrid(itr->second.posX, itr->second.posY);
-        }
-    }
-    else                                                    // Normal case - Load all npcs that are active
-    {
-        std::pair<ActiveCreatureGuidsOnMap::const_iterator, ActiveCreatureGuidsOnMap::const_iterator> bounds = m_activeCreatures.equal_range(_map->GetId());
-        for (ActiveCreatureGuidsOnMap::const_iterator itr = bounds.first; itr != bounds.second; ++itr)
-        {
-            CreatureData const& data = mCreatureDataMap[itr->second];
-            _map->ForceLoadGrid(data.posX, data.posY);
-        }
-    }
-
     // Load Transports on Map _map
 }
 
