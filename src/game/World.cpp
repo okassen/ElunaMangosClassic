@@ -112,7 +112,6 @@ World::World()
     for (int i = 0; i < CONFIG_BOOL_VALUE_COUNT; ++i)
         m_configBoolValues[i] = false;
 
-    m_configForceLoadMapIds = NULL;
 }
 
 /// World destructor
@@ -132,8 +131,6 @@ World::~World()
 
     VMAP::VMapFactory::clear();
     MMAP::MMapFactory::clear();
-
-    delete m_configForceLoadMapIds;
 
     // TODO free addSessQueue
 }
@@ -1251,10 +1248,6 @@ void World::SetInitialWorldSettings()
     m_timers[WUPDATE_EVENTS].SetInterval(nextGameEvent);    // depend on next event
     sLog.outString();
 
-    sLog.outString("Loading grids for active creatures or transports...");
-    sObjectMgr.LoadActiveEntities(NULL);
-    sLog.outString();
-
     // Delete all characters which have been deleted X days before
     Player::DeleteOldCharacters();
 
@@ -1269,7 +1262,7 @@ void World::SetInitialWorldSettings()
     sLog.outString();
 
     sLog.outString("---------------------------------------");
-    sLog.outString("      CMANGOS: World initialized       ");
+    sLog.outString("      OWIEmu: World initialized       ");
     sLog.outString("---------------------------------------");
     sLog.outString();
 
