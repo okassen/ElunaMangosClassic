@@ -1105,11 +1105,7 @@ void ObjectMgr::LoadCreatures()
         if (gameEvent == 0 && GuidPoolId == 0 && EntryPoolId == 0) // if not this is to be managed by GameEvent System or Pool system
         {
             AddCreatureToGrid(guid, &data);
-
-            if (cInfo->ExtraFlags & CREATURE_EXTRA_FLAG_ACTIVE)
-                m_activeCreatures.insert(ActiveCreatureGuidsOnMap::value_type(data.mapid, guid));
-        }
-
+		}
         ++count;
     }
     while (result->NextRow());
@@ -7944,36 +7940,6 @@ void ObjectMgr::LoadVendorTemplates()
         sLog.outErrorDb("Table `npc_vendor_template` has vendor template %u not used by any vendors ", *vItr);
 }
 
-/* This function is supposed to take care of three things:
- *  1) Load Transports on Map or on Continents
- *  2) Load Active Npcs on Map or Continents
- *  3) Load Everything dependend on config setting LoadAllGridsOnMaps
- *
- *  This function is currently WIP, hence parts exist only as draft.
- */
-void ObjectMgr::LoadActiveEntities(Map* _map)
-{
-    // Special case on startup - load continents
-    if (!_map)
-    {
-        uint32 continents[] = {0, 1};
-        for (int i = 0; i < countof(continents); ++i)
-        {
-            _map = sMapMgr.FindMap(continents[i]);
-            if (!_map)
-                _map = sMapMgr.CreateMap(continents[i], NULL);
-
-            if (_map)
-                LoadActiveEntities(_map);
-            else
-                sLog.outError("ObjectMgr::LoadActiveEntities - Unable to create Map %u", continents[i]);
-        }
-
-        return;
-    }
-
-    // Load Transports on Map _map
-}
 
 void ObjectMgr::LoadNpcGossips()
 {
